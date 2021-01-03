@@ -1,0 +1,50 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.learn.gmall.manage.mapper.PmsBaseAttrInfoMapper">
+
+    <select id="selectAttrInfoList" resultMap="attrInfoListMapper">
+    SELECT
+	pbai.*,
+	pbav.*,
+	pbai.id AS pbai_id,
+	pbav.id AS pbav_id
+FROM
+	pms_base_attr_info pbai
+	INNER JOIN pms_base_attr_value pbav ON pbai.id = pbav.attr_id
+	AND pbai.catalog3_id = #{catalog3Id} ;
+    </select>
+
+    <resultMap id="attrInfoListMapper" type="com.learn.gmall.api.bean.PmsBaseAttrInfo" autoMapping="true">
+        <id column="pbai_id" property="id"/>
+        <collection property="attrValueList" ofType="com.learn.gmall.api.bean.PmsBaseAttrValue" autoMapping="true">
+            <id column="pbav_id" property="id"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectAttrInfoListByPrimaryKey" resultMap="selectAttrInfoListByPrimaryKeyMapper">
+    SELECT
+	pbai.*,
+	pbav.*,
+	pbai.id AS pbai_id,
+	pbav.id AS pbav_id
+FROM
+	pms_base_attr_info pbai
+	INNER JOIN pms_base_attr_value pbav ON pbai.id = pbav.attr_id
+	<if test="valueIdList != null and valueIdList.size() > 0">
+        AND pbav.id in
+        <foreach collection="valueIdList" index="index" item="item" open="(" close=")" separator=",">
+            ${item}
+        </foreach>
+    </if>
+
+    </select>
+
+    <resultMap id="selectAttrInfoListByPrimaryKeyMapper" type="com.learn.gmall.api.bean.PmsBaseAttrInfo" autoMapping="true">
+        <id column="pbai_id" property="id"/>
+        <collection property="attrValueList" ofType="com.learn.gmall.api.bean.PmsBaseAttrValue" autoMapping="true">
+            <id column="pbav_id" property="id"/>
+        </collection>
+    </resultMap>
+</mapper>

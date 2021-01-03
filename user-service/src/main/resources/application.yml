@@ -1,0 +1,33 @@
+server:
+  port: 8074
+
+spring:
+  datasource:
+    url: jdbc:mysql://database.gmall.com:3306/gmall_database?useUnicode=true&useSSL=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Secret-mysql8
+  redis:
+    host: redis.gmall.com
+    port: 6379
+    database: 0
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+
+dubbo:
+  registry:
+    protocol: zookeeper
+    address: zookeeper.gmall.com:2181
+    timeout: 30000
+  application:
+    name: gmall-user-service
+  provider:
+    timeout: 30000
+  protocol:
+    port: 20881
+    name: dubbo
+

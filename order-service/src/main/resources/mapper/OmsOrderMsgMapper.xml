@@ -1,0 +1,19 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.learn.gmall.order.mapper.OmsOrderMsgMapper">
+
+    <select id="selectStatus2AndIsAliveMsg" resultType="com.learn.gmall.api.bean.OmsOrderMessageSendLog">
+        SELECT
+        *
+        FROM
+        oms_order_message_send_log oomsl
+        WHERE
+        oomsl.message_content = ''
+        AND oomsl.next_retry_time &lt; SYSDATE( )
+        AND oomsl.is_alive = TRUE
+    </select>
+
+
+</mapper>

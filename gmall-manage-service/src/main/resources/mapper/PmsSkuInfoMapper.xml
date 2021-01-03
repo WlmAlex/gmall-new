@@ -1,0 +1,73 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.learn.gmall.manage.mapper.PmsSkuInfoMapper">
+
+    <select id="selectPmsSkuInfoByPrimaryKey" resultMap="selectPmsSkuInfoByPrimaryKeyMapper">
+SELECT
+	psi.*,
+	psimg.*,
+	psi.id AS psi_id,
+	psimg.id AS psimg_id
+FROM
+	pms_sku_info psi
+	INNER JOIN pms_sku_image psimg ON psi.id = psimg.sku_id
+	AND psi.id = ${skuId}
+    </select>
+
+    <resultMap id="selectPmsSkuInfoByPrimaryKeyMapper" type="com.learn.gmall.api.bean.PmsSkuInfo" autoMapping="true">
+        <id column="psi_id" property="id"/>
+        <id column="product_id" property="spuId"/>
+        <collection property="skuImageList" ofType="com.learn.gmall.api.bean.PmsSkuImage" autoMapping="true">
+            <id column="psimg_id" property="id"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectPmsSkuInfoListByProductId" resultMap="selectPmsSkuInfoListByProductIdMapper">
+SELECT
+	psi.*,
+	psi.id AS psi_id,
+	pssav.*,
+	pssav.id AS pssav_id
+FROM
+	pms_sku_info psi
+	INNER JOIN pms_sku_sale_attr_value pssav ON psi.id = pssav.sku_id
+	AND psi.product_id = ${spuId}
+    </select>
+
+    <resultMap id="selectPmsSkuInfoListByProductIdMapper" type="com.learn.gmall.api.bean.PmsSkuInfo" autoMapping="true">
+        <id column="psi_id" property="id"/>
+        <id column="product_id" property="spuId"/>
+        <collection property="skuSaleAttrValueList" ofType="com.learn.gmall.api.bean.PmsSkuSaleAttrValue"
+                    autoMapping="true">
+            <id column="pssav_id" property="id"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectPmsSkuInfoBySkuId" resultMap="selectPmsSkuInfoBySkuIdMapper">
+SELECT
+	psi.*,
+	psimg.*,
+	psav.*,
+	psi.id AS psi_id,
+	psimg.id AS psimg_id,
+	psav.id AS psav_id
+FROM
+	pms_sku_info psi
+	INNER JOIN pms_sku_image psimg ON psi.id = psimg.sku_id
+	INNER JOIN pms_sku_attr_value psav ON psi.id = psav.sku_id
+	AND psi.id = ${skuId}
+    </select>
+
+    <resultMap id="selectPmsSkuInfoBySkuIdMapper" type="com.learn.gmall.api.bean.PmsSkuInfo" autoMapping="true">
+        <id column="psi_id" property="id"/>
+        <id column="product_id" property="spuId"/>
+        <collection property="skuImageList" ofType="com.learn.gmall.api.bean.PmsSkuImage" autoMapping="true">
+            <id column="psimg_id" property="id"/>
+        </collection>
+        <collection property="skuAttrValueList" ofType="com.learn.gmall.api.bean.PmsSkuAttrValue" autoMapping="true">
+            <id column="psav_id" property="id"/>
+        </collection>
+    </resultMap>
+</mapper>

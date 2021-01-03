@@ -1,0 +1,17 @@
+
+server:
+  port: 8084
+
+dubbo:
+  registry:
+    protocol: zookeeper
+    address: zookeeper.gmall.com:2181
+  protocol:
+    name: dubbo
+  application:
+    name: gmall-user-web
+
+spring:
+  thymeleaf:
+    mode: HTML
+    cache: false

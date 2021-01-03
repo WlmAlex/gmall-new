@@ -1,0 +1,19 @@
+
+server:
+  port: 8085
+
+dubbo:
+  registry:
+    protocol: zookeeper
+    address: zookeeper.gmall.com:2181
+  protocol:
+    name: dubbo
+  application:
+    name: gmall-passport-web
+
+spring:
+  thymeleaf:
+    mode: HTML
+    cache: false
+
+

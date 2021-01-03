@@ -1,0 +1,50 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.learn.gmall.manage.mapper.PmsProductSaleAttrMapper">
+
+    <select id="selectProductSaleAttrList" resultMap="productSaleAttrListMapper">
+SELECT
+	ppsa.*,
+	ppsav.*,
+	ppsa.id AS ppsa_id,
+	ppsav.id AS ppsav_id
+FROM
+	pms_product_sale_attr ppsa
+	INNER JOIN pms_product_sale_attr_value ppsav ON ppsa.product_id = ppsav.product_id
+	AND ppsa.sale_attr_id = ppsav.sale_attr_id
+	AND ppsa.product_id = #{spuId};
+    </select>
+
+    <resultMap id="productSaleAttrListMapper" type="com.learn.gmall.api.bean.PmsProductSaleAttr" autoMapping="true">
+        <id column="ppsa_id" property="id"/>
+        <collection property="spuSaleAttrValueList" ofType="com.learn.gmall.api.bean.PmsProductSaleAttrValue" autoMapping="true">
+            <id column="ppsav_id" property="id"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectProductSaleAttrListBySku" resultMap="selectProductSaleAttrListBySkuMapper">
+SELECT
+	ppsa.*,
+	ppsav.*,
+	ppsa.id AS ppsa_id,
+	ppsav.id AS ppsav_id,
+IF
+	( pssav.id, true, false ) AS isDefaultAttrValue
+FROM
+	pms_product_sale_attr ppsa
+	INNER JOIN pms_product_sale_attr_value ppsav ON ppsa.sale_attr_id = ppsav.sale_attr_id
+	AND ppsav.product_id = ppsa.product_id
+	AND ppsa.product_id = ${skuInfo.spuId}
+	LEFT JOIN pms_sku_sale_attr_value pssav ON pssav.sale_attr_value_name = ppsav.sale_attr_value_name
+	AND pssav.sku_id = ${skuInfo.id}
+    </select>
+
+    <resultMap id="selectProductSaleAttrListBySkuMapper" type="com.learn.gmall.api.bean.PmsProductSaleAttr" autoMapping="true">
+        <id column="ppsa_id" property="id"/>
+        <collection property="spuSaleAttrValueList" ofType="com.learn.gmall.api.bean.PmsProductSaleAttrValue" autoMapping="true">
+            <id column="ppsav_id" property="id"/>
+        </collection>
+    </resultMap>
+</mapper>

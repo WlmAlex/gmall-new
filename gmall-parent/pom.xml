@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.3.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.learn.gmall</groupId>
+    <artifactId>gmall-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>gmall-parent</name>
+    <description>package management project for gmall</description>
+
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <modules>
+        <module>../common-util</module>
+        <module>../service-util</module>
+        <module>../web-util</module>
+        <module>../api</module>
+        <module>../manage-web</module>
+        <module>../gmall-manage-service</module>
+        <module>../item-service</module>
+        <module>../item-web</module>
+        <module>../search-web</module>
+        <module>../search-service</module>
+        <module>../cart-web</module>
+        <module>../cart-service</module>
+        <module>../passport-web</module>
+        <module>../order-web</module>
+        <module>../order-service</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.learn.gmall</groupId>
+                <artifactId>common-util</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.learn.gmall</groupId>
+                <artifactId>service-util</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.learn.gmall</groupId>
+                <artifactId>web-util</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

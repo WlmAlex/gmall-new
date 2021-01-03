@@ -1,0 +1,16 @@
+
+server:
+  port: 8090
+
+dubbo:
+  registry:
+    protocol: zookeeper
+    address: zookeeper.gmall.com:2181
+  protocol:
+    name: dubbo
+  application:
+    name: gmall-manage-service
+
+
+fastdfs:
+  server: http://file.gmall.com/

@@ -1,0 +1,28 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.learn.gmall.manage.mapper.PmsSkuMessageLogMapper">
+
+    <select id="selectSentFailMessageList" resultMap="selectSentFailMessageListMapper">
+SELECT
+	psml.id,
+	psml.sku_id,
+	psml.status,
+	psml.status,
+	psml.retry_count,
+	psml.create_time,
+	psml.update_time,
+	psml.next_retry_time,
+	psml.is_dead
+FROM
+	pms_sku_message_log psml
+	WHERE psml.`status` = '2'
+	AND psml.`is_dead` = 'false'
+	AND psml.next_retry_time &lt; SYSDATE();
+    </select>
+
+    <resultMap id="selectSentFailMessageListMapper" type="com.learn.gmall.api.bean.PmsSkuMessageLog" autoMapping="true">
+        <id column="id" property="id"/>
+    </resultMap>
+</mapper>
